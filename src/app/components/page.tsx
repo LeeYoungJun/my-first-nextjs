@@ -14,6 +14,7 @@ import {
   Alert,
   Heading,
   Text,
+  ImageCard,
 } from '@/components/ui';
 
 export default function ComponentsPage() {
@@ -280,6 +281,130 @@ export default function ComponentsPage() {
             <Alert variant="danger" title="Error">
               오류가 발생했습니다. 다시 시도해 주세요.
             </Alert>
+          </div>
+        </section>
+
+        {/* Image Cards Section */}
+        <section className="mb-12">
+          <Heading level="h2" className="mb-6 pb-2 border-b border-[var(--color-light-gray)]">
+            Image Cards
+          </Heading>
+
+          {/* Image Position: Top (Default) */}
+          <div className="mb-8">
+            <Text weight="semibold" className="mb-4">Image Position: Top (Default)</Text>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <ImageCard
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+                alt="City Building"
+                title="시설물 관리"
+                description="도시가스 시설물을 효율적으로 관리하고 모니터링합니다."
+                badge="New"
+                badgeVariant="success"
+                footer={<Button size="sm">자세히 보기</Button>}
+              />
+              <ImageCard
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop"
+                alt="Analytics"
+                title="데이터 분석"
+                description="실시간 데이터 분석으로 안전한 운영을 지원합니다."
+                badge="Popular"
+                badgeVariant="warning"
+                variant="elevated"
+                footer={<Button size="sm" variant="secondary">Learn More</Button>}
+              />
+              <ImageCard
+                src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop"
+                alt="Team Work"
+                title="협업 도구"
+                description="팀 간 원활한 협업을 위한 통합 플랫폼을 제공합니다."
+                variant="outline"
+                footer={<Button size="sm" variant="ghost">Details</Button>}
+              />
+            </div>
+          </div>
+
+          {/* Image Position: Left/Right */}
+          <div className="mb-8">
+            <Text weight="semibold" className="mb-4">Image Position: Left / Right</Text>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <ImageCard
+                src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=300&fit=crop"
+                alt="Server Room"
+                imagePosition="left"
+                title="클라우드 인프라"
+                description="안정적인 클라우드 기반 서비스를 제공합니다."
+                badge="Cloud"
+                badgeVariant="default"
+              />
+              <ImageCard
+                src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=400&h=300&fit=crop"
+                alt="Mobile App"
+                imagePosition="right"
+                title="모바일 지원"
+                description="언제 어디서나 모바일로 접근 가능합니다."
+                badge="Mobile"
+                badgeVariant="purple"
+              />
+            </div>
+          </div>
+
+          {/* Image Position: Background */}
+          <div className="mb-8">
+            <Text weight="semibold" className="mb-4">Image Position: Background (Overlay)</Text>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <ImageCard
+                src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&h=400&fit=crop"
+                alt="City Night"
+                imagePosition="background"
+                title="GeoLab 시스템"
+                description="도시가스 안전관리의 새로운 기준"
+                badge="Featured"
+                badgeVariant="warning"
+              />
+              <ImageCard
+                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop"
+                alt="Digital World"
+                imagePosition="background"
+                title="GIS 기반 솔루션"
+                description="공간 데이터 분석 및 시각화"
+              />
+            </div>
+          </div>
+
+          {/* Aspect Ratios */}
+          <div>
+            <Text weight="semibold" className="mb-4">Aspect Ratios</Text>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <ImageCard
+                src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=300&h=300&fit=crop"
+                alt="Tech"
+                aspectRatio="square"
+                title="Square"
+                contentPadding="sm"
+              />
+              <ImageCard
+                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&h=200&fit=crop"
+                alt="Tech"
+                aspectRatio="video"
+                title="Video (16:9)"
+                contentPadding="sm"
+              />
+              <ImageCard
+                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=300&h=400&fit=crop"
+                alt="Tech"
+                aspectRatio="portrait"
+                title="Portrait (3:4)"
+                contentPadding="sm"
+              />
+              <ImageCard
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=200&fit=crop"
+                alt="Tech"
+                aspectRatio="wide"
+                title="Wide (2:1)"
+                contentPadding="sm"
+              />
+            </div>
           </div>
         </section>
 

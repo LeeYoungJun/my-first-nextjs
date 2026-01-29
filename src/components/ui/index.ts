@@ -24,3 +24,4 @@ export {
   type HeadingProps,
   type TextProps,
 } from './Typography';
+export { ImageCard, imageCardVariants, type ImageCardProps } from './ImageCard';

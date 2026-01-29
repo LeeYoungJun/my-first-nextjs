@@ -15,11 +15,12 @@
 | 커스텀 카드 div | `<Card>` from `@/components/ui` |
 | 커스텀 뱃지/태그 | `<Badge>` from `@/components/ui` |
 | 커스텀 알림 div | `<Alert>` from `@/components/ui` |
+| 이미지+텍스트 카드 | `<ImageCard>` from `@/components/ui` |
 
 ### Import Pattern
 
 ```tsx
-import { Button, Card, Input, Badge, Alert, Heading, Text } from '@/components/ui';
+import { Button, Card, Input, Badge, Alert, Heading, Text, ImageCard } from '@/components/ui';
 ```
 
 ### Available Components
@@ -46,6 +47,12 @@ import { Button, Card, Input, Badge, Alert, Heading, Text } from '@/components/u
 7. **Text** - 모든 본문 텍스트
    - sizes: `xs`, `sm`, `base`, `lg`, `xl`
    - colors: `default`, `muted`, `primary`, `success`, `warning`, `danger`
+
+8. **ImageCard** - 이미지와 텍스트가 결합된 카드
+   - variants: `default`, `elevated`, `outline`, `ghost`
+   - imagePosition: `top`, `left`, `right`, `background`
+   - aspectRatio: `video`, `square`, `portrait`, `wide`, `auto`
+   - props: `src`, `alt`, `title`, `description`, `badge`, `footer`, `overlay`
 
 ### Color Variables
 
