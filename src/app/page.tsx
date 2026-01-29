@@ -46,7 +46,7 @@ export default function IntroPage() {
     },
     {
       title: '100% 오픈소스',
-      description: 'PostGIS, GeoServer, MapLibre GL 기반 구축',
+      description: 'PostGIS, MapLibre GL 기반 구축',
       icon: (
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -115,7 +115,7 @@ export default function IntroPage() {
           </h1>
 
           <Text as="p" className="text-xl md:text-2xl text-white/90 mb-4 font-light">
-            PostGIS · GeoServer · MapLibre GL 기반
+            PostGIS · MapLibre GL 기반
           </Text>
 
           <Text as="p" className="text-lg text-white/70 mb-12 max-w-2xl mx-auto">
@@ -199,7 +199,7 @@ export default function IntroPage() {
                 라이센스 리스크 없는<br />순수 오픈소스 GIS
               </Heading>
               <Text className="text-white/70 mb-8 text-lg">
-                GIS 엔진을 배제하고 PostGIS, GeoServer, MapLibre GL 등 검증된 오픈소스만으로 구축.
+                GIS 엔진을 배제하고 PostGIS, MapLibre GL 등 검증된 오픈소스만으로 구축.
                 핵심 기능에 집중하여 불필요한 요소를 배제한 실용적인 시스템입니다.
               </Text>
               <div className="flex gap-4">
@@ -287,7 +287,7 @@ export default function IntroPage() {
               src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800"
               alt="오픈소스 스택"
               title="100% 오픈소스 스택"
-              description="DBMS: PostGIS / Back-end: GeoServer, TileServer GL / Front-end: MapLibre GL, Turf / Tools: QGIS, Tippecanoe. 과도한 라이센스와 End of Service 리스크 최소화."
+              description="DBMS: PostGIS / Back-end: TileServer GL / Front-end: MapLibre GL, Turf / Tools: QGIS, Tippecanoe. 과도한 라이센스와 End of Service 리스크 최소화."
               badge="Open Source"
               badgeVariant="success"
               variant="outline"
@@ -360,7 +360,7 @@ export default function IntroPage() {
               <ul className="space-y-3">
                 {[
                   'DBMS: PostgreSQL + PostGIS 공간 데이터베이스',
-                  'Back-end: GeoServer, TileServer GL 타일 서버',
+                  'Back-end: TileServer GL 타일 서버',
                   'Front-end: MapLibre GL JS, Turf.js 공간분석',
                   'Tools: QGIS 데이터 편집, Tippecanoe 타일 생성',
                   'ETL: Shape File 자동 적재 및 좌표계 변환',
@@ -396,7 +396,7 @@ export default function IntroPage() {
                       </svg>
                     </div>
                     <div>
-                      <Text weight="semibold" size="sm">GeoServer + TileServer GL</Text>
+                      <Text weight="semibold" size="sm">TileServer GL</Text>
                       <Text size="xs" color="muted">WMS/WFS/벡터 타일 서버</Text>
                     </div>
                   </div>
