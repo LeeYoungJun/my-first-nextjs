@@ -65,11 +65,31 @@ export default function IntroPage() {
   ];
 
   const clients = [
-    'CNCITY 에너지',
-    '미래엔서해에너지',
-    '참빛원주도시가스',
-    'JB',
-    '인천도시가스',
+    {
+      name: 'CNCITY 에너지',
+      logo: '/images/clients/cncity.png',
+      url: 'https://www.cncityenergy.com/jsp/index.jsp',
+    },
+    {
+      name: '미래엔서해에너지',
+      logo: '/images/clients/seohae.png',
+      url: 'https://www.shgas.co.kr',
+    },
+    {
+      name: '참빛원주도시가스',
+      logo: '/images/clients/wonju.png',
+      url: 'https://www.cwjgas.co.kr',
+    },
+    {
+      name: 'JB 주식회사',
+      logo: '/images/clients/jb.png',
+      url: 'https://www.jbcorporation.com/',
+    },
+    {
+      name: '인천도시가스',
+      logo: '/images/clients/incheon.png',
+      url: 'http://www.icgas.co.kr/2016/start.asp',
+    },
   ];
 
   return (
@@ -288,12 +308,37 @@ export default function IntroPage() {
 
           <div className="flex flex-wrap justify-center items-center gap-6">
             {clients.map((client, index) => (
-              <div
+              <a
                 key={index}
-                className="px-6 py-3 bg-white rounded-lg shadow-sm border border-[var(--color-light-gray)]"
+                href={client.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all cursor-pointer min-w-[180px] border border-[var(--color-light-gray)] hover:border-[var(--color-primary)]"
               >
-                <Text weight="medium" color="muted">{client}</Text>
-              </div>
+                {/* 이미지 영역 - 흰색 배경 */}
+                <div className="bg-white px-6 py-5 flex items-center justify-center">
+                  <div className="w-24 h-14 flex items-center justify-center">
+                    <img
+                      src={client.logo}
+                      alt={`${client.name} 로고`}
+                      className="max-w-full max-h-full object-contain"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                      }}
+                    />
+                    <div className="hidden w-14 h-14 bg-[var(--color-light-gray)] rounded-lg flex items-center justify-center">
+                      <svg className="w-7 h-7 text-[var(--color-medium-gray)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                {/* 텍스트 영역 - 테마 컬러 배경 */}
+                <div className="bg-gradient-to-r from-[#0066b3] to-[#0078d4] px-4 py-3 text-center">
+                  <Text weight="medium" size="sm" className="text-white">{client.name}</Text>
+                </div>
+              </a>
             ))}
           </div>
         </div>
