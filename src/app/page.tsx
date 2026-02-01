@@ -131,6 +131,7 @@ export default function IntroPage() {
   const featuresRef = useRef(null);
   const isHeroInView = useInView(heroRef, { once: true });
   const isFeaturesInView = useInView(featuresRef, { once: true, margin: "-100px" });
+  const [isFeatureModalOpen, setIsFeatureModalOpen] = useState(false);
 
   // 패럴랙스 효과
   const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -150]);
@@ -139,6 +140,51 @@ export default function IntroPage() {
   const handleGeoLabClick = () => {
     window.location.href = 'https://geolab.sphinfo.co.kr/geolab/main';
   };
+
+  // 주요 기능 데이터
+  const keyFeatures = [
+    {
+      category: '도면 조회',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+        </svg>
+      ),
+      color: 'from-[#10b981] to-[#5eead4]',
+      items: ['지도 영역 제어 (확대/축소/이동)', '지번·도로명·건물명 검색', '거리/면적 측정', '배경지도 (브이월드/카카오)', '주제도 (지적도/용도지역도/침수흔적도)']
+    },
+    {
+      category: '가스 시설물',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+        </svg>
+      ),
+      color: 'from-[#5eead4] to-[#10b981]',
+      items: ['배관 현황/점검이력', '정압기 현황/점검이력', '밸브 현황/점검이력', 'TB 현황/점검이력', '정류기/MOV 현황', '수용가 현황 조회']
+    },
+    {
+      category: '긴급상황 분석',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+      ),
+      color: 'from-red-500 to-orange-500',
+      items: ['사고 지점 선택/분석', '1차/2차 차단 밸브 검출', '차단 정압기 결과', '공급중단 배관/수용가', '퍼지량 및 가스량 산출', '분석 결과 인쇄']
+    },
+    {
+      category: '시스템 관리',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      ),
+      color: 'from-purple-500 to-indigo-500',
+      items: ['역할/그룹 관리', '메뉴 권한 관리', '레이어 권한 설정', '공통 코드 관리', '접속/데이터 로그']
+    },
+  ];
 
   const features = [
     {
@@ -480,6 +526,133 @@ export default function IntroPage() {
           </div>
         </div>
       </section>
+
+      {/* Key Features Section - Rivian Style */}
+      <section className="relative py-24 px-6 bg-gradient-to-b from-[#0d2818] to-[#0a1f1a]">
+        <div className="max-w-5xl mx-auto">
+          {/* Rivian 스타일 이미지 카드 */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
+            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl group cursor-pointer border border-white/10"
+              style={{ boxShadow: '0 25px 60px rgba(16, 185, 129, 0.15), 0 10px 30px rgba(0, 0, 0, 0.3)' }}
+            >
+              {/* 메인 이미지 - 호버 시 확대 효과 */}
+              <div className="relative aspect-[4/3] md:aspect-[16/10] overflow-hidden">
+                <img
+                  src="/images/screenshots/geolab-main.png"
+                  alt="GeoLab 메인화면"
+                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  style={{
+                    filter: 'brightness(1.02) contrast(1.02) saturate(1.05)'
+                  }}
+                />
+
+                {/* 하단 그라데이션 오버레이 */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+                {/* 좌측 하단 텍스트 & 버튼 - Rivian 스타일 */}
+                <div className="absolute bottom-8 left-8 md:bottom-12 md:left-12">
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                    <span className="text-[#5eead4]">GeoLab</span>
+                    <br />
+                    시설물 조회
+                  </h2>
+                  <button
+                    onClick={() => setIsFeatureModalOpen(true)}
+                    className="inline-flex items-center gap-2 bg-white text-gray-900 font-semibold px-6 py-3 rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                  >
+                    주요 기능
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 주요 기능 팝업 모달 */}
+      <AnimatePresence>
+        {isFeatureModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* 배경 오버레이 */}
+            <motion.div
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsFeatureModalOpen(false)}
+            />
+
+            {/* 모달 컨텐츠 */}
+            <motion.div
+              className="relative bg-[#0d2818] border border-white/10 rounded-3xl max-w-4xl w-full shadow-2xl"
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            >
+              {/* 모달 헤더 */}
+              <div className="sticky top-0 bg-[#0d2818]/95 backdrop-blur-md border-b border-white/10 px-8 py-5 flex items-center justify-between z-10">
+                <div>
+                  <h3 className="text-2xl font-bold text-white">주요 기능</h3>
+                  <p className="text-white/50 text-sm mt-1">GeoLab 시설물 조회 시스템</p>
+                </div>
+                <button
+                  onClick={() => setIsFeatureModalOpen(false)}
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                >
+                  <svg className="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* 모달 바디 */}
+              <div className="p-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {keyFeatures.map((feature, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-[#10b981]/50 transition-all duration-300"
+                    >
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-white`}>
+                          {feature.icon}
+                        </div>
+                        <h4 className="text-lg font-bold text-white">{feature.category}</h4>
+                      </div>
+                      <ul className="space-y-2">
+                        {feature.items.map((item, idx) => (
+                          <li key={idx} className="flex items-center gap-3 text-white/60 text-sm">
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#5eead4]" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Clients Section */}
       <section className="py-24 px-6 bg-gradient-to-b from-[#0a1f1a] to-[#0d2818]">
