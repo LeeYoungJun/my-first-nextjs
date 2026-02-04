@@ -684,12 +684,12 @@ export default function IntroPage() {
                 whileHover={{ y: -5 }}
               >
                 <div className="flex flex-col overflow-hidden rounded-xl border border-white/10 hover:border-[#10b981]/50 transition-all duration-300 min-w-[180px]">
-                  <div className="bg-white px-6 py-5 flex items-center justify-center">
-                    <div className="w-24 h-14 flex items-center justify-center">
+                  <div className="bg-white px-6 py-5 flex items-center justify-center overflow-hidden">
+                    <div className="w-24 h-14 flex items-center justify-center overflow-hidden">
                       <img
                         src={client.logo}
                         alt={`${client.name} 로고`}
-                        className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                        className="max-w-full max-h-full object-contain grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700 ease-out"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
                           e.currentTarget.nextElementSibling?.classList.remove('hidden');
