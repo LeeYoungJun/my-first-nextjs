@@ -1,0 +1,86 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+      - master
+      - develop
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  ai-code-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            **/*.ts
+            **/*.tsx
+            **/*.js
+            **/*.jsx
+            **/*.css
+            **/*.json
+          files_ignore: |
+            **/node_modules/**
+            **/*.lock
+            **/package-lock.json
+
+      - name: Get PR diff
+        id: pr-diff
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          # Get the diff for changed files
+          DIFF=$(git diff ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} -- ${{ steps.changed-files.outputs.all_changed_files }} | head -c 50000)
+
+          # Save to file to avoid shell escaping issues
+          echo "$DIFF" > /tmp/pr_diff.txt
+
+      - name: Run AI Code Review
+        id: ai-review
+        if: steps.changed-files.outputs.any_changed == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          node .github/scripts/ai-review.mjs
+
+      - name: Find existing review comment
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: peter-evans/find-comment@v3
+        id: find-comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: '## 🤖 AI Code Review'
+
+      - name: Post review comment
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          comment-id: ${{ steps.find-comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body-path: /tmp/review_comment.md
+          edit-mode: replace
+
+      - name: No changes to review
+        if: steps.changed-files.outputs.any_changed != 'true'
+        run: echo "No relevant files changed. Skipping AI review."
